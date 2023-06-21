@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F3D4F8"
-    tools:context=".ui.combo.ComboFragment">
+    tools:context=".ui.search.SearchFood">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/ComboRecyclerView"
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:text="@string/hello_blank_fragment" />
+
 </FrameLayout>
