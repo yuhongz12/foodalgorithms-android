@@ -26,7 +26,7 @@
 
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/SearchRecipeCard"
+                android:id="@+id/ComboRecipeRecipeCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="12dp">
@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:id="@+id/SearchRecipeImage"
+                        android:id="@+id/ComboFoodImage"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
@@ -47,7 +47,7 @@
                         tools:src="@tools:sample/avatars" />
 
                     <TextView
-                        android:id="@+id/SearchRecipeName"
+                        android:id="@+id/ComboFoodName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -57,10 +57,10 @@
                         android:textStyle="bold"
                         android:typeface="normal"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/SearchRecipeImage" />
+                        app:layout_constraintTop_toBottomOf="@+id/ComboFoodImage" />
 
                     <TextView
-                        android:id="@+id/RandomCocktailCategory"
+                        android:id="@+id/ComboFoodCategory"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -71,10 +71,10 @@
                         android:textStyle="italic"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/SearchRecipeName" />
+                        app:layout_constraintTop_toBottomOf="@+id/ComboFoodName" />
 
                     <TextView
-                        android:id="@+id/RandomCocktailCountry"
+                        android:id="@+id/ComboFoodCountry"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -83,8 +83,8 @@
                         android:text="Country"
                         android:textStyle="italic"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/RandomCocktailCategory"
-                        app:layout_constraintTop_toBottomOf="@+id/SearchRecipeName" />
+                        app:layout_constraintStart_toEndOf="@+id/ComboFoodCategory"
+                        app:layout_constraintTop_toBottomOf="@+id/ComboFoodName" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
@@ -102,7 +102,7 @@
                 android:textStyle="bold" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/RandomRecipeCard"
+                android:id="@+id/RandomCocktailRecipeCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="12dp">

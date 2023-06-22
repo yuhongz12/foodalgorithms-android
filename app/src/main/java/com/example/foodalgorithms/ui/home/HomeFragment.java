@@ -1,36 +1,56 @@
 package com.example.foodalgorithms.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.example.foodalgorithms.databinding.FragmentHomeBinding;
+import com.example.foodalgorithms.R;
+import com.example.foodalgorithms.ui.food.FoodDetailFragment;
 
 public class HomeFragment extends Fragment {
+    CardView randomFoodCard;
 
-    private FragmentHomeBinding binding;
+    CardView randomCocktailCard;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        randomFoodCard = view.findViewById(R.id.ComboRecipeRecipeCard);
+        randomCocktailCard = view.findViewById(R.id.RandomCocktailRecipeCard);
 
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        randomCocktailCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent viewComboDetails = new Intent(getContext(), FoodDetailFragment.class);
+                AppCompatActivity activity = (AppCompatActivity) getContext();
+                FoodDetailFragment foodDetailFragment = new FoodDetailFragment();
+                Bundle arguments = new Bundle();
+             //   arguments.putString("idMeal", String.valueOf(cocktailItemList.get(holder.getAdapterPosition()).getIdDrink()));
+                foodDetailFragment.setArguments(arguments);
+                getParentFragmentManager().beginTransaction().replace(R.id.fragmentContainerViewHome, foodDetailFragment).addToBackStack(null).commit();
+            }
+        });
 
-
-        return root;
+        randomFoodCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent viewComboDetails = new Intent(getContext(), FoodDetailFragment.class);
+                AppCompatActivity activity = (AppCompatActivity) getContext();
+                FoodDetailFragment foodDetailFragment = new FoodDetailFragment();
+                Bundle arguments = new Bundle();
+               // arguments.putString("idMeal", String.valueOf(cocktailItemList.get(holder.getAdapterPosition()).getIdDrink()));
+                foodDetailFragment.setArguments(arguments);
+                getParentFragmentManager().beginTransaction().replace(R.id.fragmentContainerViewHome, foodDetailFragment).addToBackStack(null).commit();
+            }
+        });
+        return view;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
 }

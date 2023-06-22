@@ -37,7 +37,7 @@ public class ComboDetails extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_combo_details, container, false);
         TextView tv = view.findViewById(R.id.ComboDetailName);
-        tv.setText(comboId);
+       // tv.setText(comboId);
         return view;
     }
 }

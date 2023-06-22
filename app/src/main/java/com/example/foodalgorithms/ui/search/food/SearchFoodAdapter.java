@@ -18,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodalgorithms.R;
-import com.example.foodalgorithms.ui.combo.ComboDetails;
 import com.example.foodalgorithms.ui.food.FoodDetailFragment;
 
 import java.io.InputStream;
@@ -72,9 +71,9 @@ public class SearchFoodAdapter extends RecyclerView.Adapter<SearchFoodAdapter.Fo
         TextView nameTV;
         public FoodViewHolder(@NonNull View itemView) {
             super(itemView);
-            cardView = itemView.findViewById(R.id.SearchRecipeCard);
-            imageView = itemView.findViewById(R.id.SearchRecipeImage);
-            nameTV = itemView.findViewById(R.id.SearchRecipeName);
+            cardView = itemView.findViewById(R.id.ComboRecipeRecipeCard);
+            imageView = itemView.findViewById(R.id.ComboFoodImage);
+            nameTV = itemView.findViewById(R.id.ComboFoodName);
 
         }
     }

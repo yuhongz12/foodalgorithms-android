@@ -14,14 +14,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.foodalgorithms.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class ComboFragment extends Fragment {
+    
+    FloatingActionButton comboFAB;
 
     private ComboViewModel mViewModel;
      RecyclerView comboRecyclerView;
@@ -43,16 +47,17 @@ public class ComboFragment extends Fragment {
         comboAdapter = new ComboAdapter(getContext(), comboList);
         comboRecyclerView.setAdapter(comboAdapter);
         comboRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        comboRecyclerView.addItemDecoration(new DividerItemDecoration(comboRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
+        
+        comboFAB = view.findViewById(R.id.ComboFAB);
+        comboFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "Create Combo FAB", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return view;
     }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(ComboViewModel.class);
-        // TODO: Use the ViewModel
-    }
+ 
 
 }

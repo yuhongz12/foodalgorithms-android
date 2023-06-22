@@ -46,10 +46,10 @@ public class FoodDetailFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            comboId = bundle.getString("idMeal");
-
-        }
+//        if (bundle != null) {
+//            comboId = bundle.getString("idMeal");
+//
+//        }
         View view = inflater.inflate(R.layout.fragment_food_detail, container, false);
         foodDetailsName = view.findViewById(R.id.FoodDetailsName);
         foodDetailsCategory = view.findViewById(R.id.FoodDetailCategory);
