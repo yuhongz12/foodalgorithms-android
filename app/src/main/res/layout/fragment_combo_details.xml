@@ -45,7 +45,7 @@
                 android:textStyle="bold" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/ComboRecipeRecipeCard"
+                android:id="@+id/ComboFoodCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -137,6 +137,8 @@
                         android:layout_width="411dp"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/key_lime_pie_image"
                         tools:src="@tools:sample/avatars" />
 
@@ -144,31 +146,41 @@
                         android:id="@+id/ComboCocktailName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
                         android:text="Recipe Name"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textStyle="bold"
                         android:typeface="normal"
-                        tools:layout_editor_absoluteX="16dp"
-                        tools:layout_editor_absoluteY="419dp" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/ComboCocktailImage" />
 
                     <TextView
                         android:id="@+id/ComboCocktailCategory"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="16dp"
                         android:text="Category"
                         android:textAllCaps="false"
                         android:textStyle="italic"
-                        tools:layout_editor_absoluteX="16dp"
-                        tools:layout_editor_absoluteY="451dp" />
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/ComboCocktailName" />
 
                     <TextView
                         android:id="@+id/ComboCocktailCountry"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="16dp"
                         android:text="Country"
                         android:textStyle="italic"
-                        tools:layout_editor_absoluteX="87dp"
-                        tools:layout_editor_absoluteY="451dp" />
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/ComboCocktailCategory"
+                        app:layout_constraintTop_toBottomOf="@+id/ComboCocktailName" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>

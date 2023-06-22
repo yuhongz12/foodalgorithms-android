@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.foodalgorithms.R;
 import com.example.foodalgorithms.databinding.FragmentProfileBinding;
 
 public class ProfileFragment extends Fragment {
@@ -18,15 +19,8 @@ public class ProfileFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        ProfileViewModel profileViewModel =
-                new ViewModelProvider(this).get(ProfileViewModel.class);
-
-        binding = FragmentProfileBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-
-        final TextView textView = binding.textNotifications;
-        profileViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        return view;
     }
 
     @Override

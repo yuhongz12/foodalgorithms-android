@@ -22,7 +22,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        randomFoodCard = view.findViewById(R.id.ComboRecipeRecipeCard);
+        randomFoodCard = view.findViewById(R.id.ComboFoodCard);
         randomCocktailCard = view.findViewById(R.id.RandomCocktailRecipeCard);
 
         randomCocktailCard.setOnClickListener(new View.OnClickListener() {
