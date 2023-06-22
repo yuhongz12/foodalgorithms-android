@@ -19,6 +19,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodalgorithms.R;
+import com.example.foodalgorithms.ui.cocktail.CocktailDetailFragment;
 import com.example.foodalgorithms.ui.food.FoodDetailFragment;
 
 import java.io.InputStream;
@@ -51,11 +52,11 @@ public class SearchCocktailAdapter  extends RecyclerView.Adapter<SearchCocktailA
             public void onClick(View view) {
                 Intent viewComboDetails = new Intent(context, FoodDetailFragment.class);
                 AppCompatActivity activity = (AppCompatActivity) context;
-                FoodDetailFragment foodDetailFragment = new FoodDetailFragment();
+                CocktailDetailFragment cocktailDetailFragment = new CocktailDetailFragment();
                 Bundle arguments = new Bundle();
                 arguments.putString("idMeal", String.valueOf(cocktailItemList.get(holder.getAdapterPosition()).getIdDrink()));
-                foodDetailFragment.setArguments(arguments);
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerViewHome, foodDetailFragment).addToBackStack(null).commit();
+                cocktailDetailFragment.setArguments(arguments);
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerViewHome, cocktailDetailFragment).addToBackStack(null).commit();
             }
         });
     }

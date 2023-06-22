@@ -23,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import com.example.foodalgorithms.DownloadImageTask;
 import com.example.foodalgorithms.R;
 import com.example.foodalgorithms.ui.cocktail.CocktailDetailFragment;
 import com.example.foodalgorithms.ui.food.FoodDetailFragment;
@@ -90,6 +91,7 @@ public class HomeFragment extends Fragment {
                     public void onClick(View view) {
                         FoodDetailFragment foodDetailFragment = new FoodDetailFragment();
                         Bundle arguments = new Bundle();
+                        Log.i("Home ID MEAL", idMeal + "");
                         arguments.putInt("idMeal",  idMeal);
                         foodDetailFragment.setArguments(arguments);
                         getParentFragmentManager().beginTransaction().replace(R.id.fragmentContainerViewHome, foodDetailFragment).addToBackStack(null).commit();
@@ -152,28 +154,28 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap bmp = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                bmp = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return bmp;
-        }
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-        }
-    }
+//    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+//        ImageView bmImage;
+//        public DownloadImageTask(ImageView bmImage) {
+//            this.bmImage = bmImage;
+//        }
+//
+//        protected Bitmap doInBackground(String... urls) {
+//            String urldisplay = urls[0];
+//            Bitmap bmp = null;
+//            try {
+//                InputStream in = new java.net.URL(urldisplay).openStream();
+//                bmp = BitmapFactory.decodeStream(in);
+//            } catch (Exception e) {
+//                Log.e("Error", e.getMessage());
+//                e.printStackTrace();
+//            }
+//            return bmp;
+//        }
+//        protected void onPostExecute(Bitmap result) {
+//            bmImage.setImageBitmap(result);
+//        }
+//    }
 
 }
 

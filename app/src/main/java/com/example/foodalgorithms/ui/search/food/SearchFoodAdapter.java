@@ -17,6 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.foodalgorithms.DownloadImageTask;
 import com.example.foodalgorithms.R;
 import com.example.foodalgorithms.ui.food.FoodDetailFragment;
 
@@ -49,11 +51,10 @@ public class SearchFoodAdapter extends RecyclerView.Adapter<SearchFoodAdapter.Fo
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent viewComboDetails = new Intent(context, FoodDetailFragment.class);
                 AppCompatActivity activity = (AppCompatActivity) context;
                 FoodDetailFragment foodDetailFragment = new FoodDetailFragment();
                 Bundle arguments = new Bundle();
-                arguments.putString("idMeal", String.valueOf(foodItemList.get(holder.getAdapterPosition()).getIdMeal()));
+                arguments.putInt("idMeal", foodItemList.get(holder.getAdapterPosition()).getIdMeal());
                 foodDetailFragment.setArguments(arguments);
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerViewHome, foodDetailFragment).addToBackStack(null).commit();
             }
@@ -78,26 +79,4 @@ public class SearchFoodAdapter extends RecyclerView.Adapter<SearchFoodAdapter.Fo
         }
     }
 
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap bmp = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                bmp = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return bmp;
-        }
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-        }
-    }
 }

@@ -1,5 +1,7 @@
 package com.example.foodalgorithms.ui.search.food;
 
+import android.graphics.Bitmap;
+
 public class ResultFoodItem {
 
     int idMeal;
