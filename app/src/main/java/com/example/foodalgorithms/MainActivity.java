@@ -46,65 +46,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//
-//        binding = ActivityMainBinding.inflate(getLayoutInflater());
-//        setContentView(binding.getRoot());
-//
-////        BottomNavigationView navView = findViewById(R.id.nav_view);
-////        // Passing each menu ID as a set of Ids because each
-////        // menu should be considered as top level destinations.
-////        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-////                R.id.navigation_home, R.id.navigation_search, R.id.navigation_search,R.id.navigation_combo,R.id.navigation_notifications)
-////                .build();
-////        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
-////        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-////        NavigationUI.setupWithNavController(binding.navView, navController);
-//
-//
-//        TabLayout tabLayout = findViewById(R.id);
-//        int currentPosition = -1;
-//        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//                // go to the respective tab
-//                int position = tab.getPosition();
-//                if (position != currentPosition) {
-//                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-////                    if (position == 0) {
-////                        HomeFragment homeFragment = new HomeFragment();
-////                        fragmentTransaction.replace(R.id.fragmentContainerView, homeFragment);
-////                        Log.i("POSITION", "position: " + position);
-////                    } else if (position == 1) {
-////                        ExploreFragment exploreFragment = new ExploreFragment();
-////                        fragmentTransaction.replace(R.id.fragmentContainerView, exploreFragment);
-////                        Log.i("POSITION", "position: " + position);
-////                    } else if (position == 2) {
-////                        FavoritesFragment favoritesFragment = new FavoritesFragment();
-////                        fragmentTransaction.replace(R.id.fragmentContainerView, favoritesFragment);
-////                        Log.i("POSITION", "position: " + position);
-////                    } else if (position == 3) {
-////                        HistoryFragment historyFragment = new HistoryFragment();
-////                        fragmentTransaction.replace(R.id.fragmentContainerView, historyFragment);
-////                        Log.i("POSITION", "position: " + position);
-////                    } else {
-////                        SettingsFragment settingsFragment = new SettingsFragment();
-////                        fragmentTransaction.replace(R.id.fragmentContainerView, settingsFragment);
-////                        Log.i("POSITION", "position: " + position);
-////                    }
-//                    fragmentTransaction.commit();
-//                }
-//            }
-//
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab) {
-//
-//            }
-//
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) {
-//
-//            }
-//        });
     }
 
 }

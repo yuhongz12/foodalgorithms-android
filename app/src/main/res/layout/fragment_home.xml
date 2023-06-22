@@ -26,7 +26,7 @@
 
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/RandomCocktailCard"
+                android:id="@+id/SearchRecipeCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="12dp">
@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:id="@+id/RandomCocktailImage"
+                        android:id="@+id/SearchRecipeImage"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
@@ -47,7 +47,7 @@
                         tools:src="@tools:sample/avatars" />
 
                     <TextView
-                        android:id="@+id/RandomCocktailName"
+                        android:id="@+id/SearchRecipeName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -57,7 +57,7 @@
                         android:textStyle="bold"
                         android:typeface="normal"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/RandomCocktailImage" />
+                        app:layout_constraintTop_toBottomOf="@+id/SearchRecipeImage" />
 
                     <TextView
                         android:id="@+id/RandomCocktailCategory"
@@ -71,7 +71,7 @@
                         android:textStyle="italic"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/RandomCocktailName" />
+                        app:layout_constraintTop_toBottomOf="@+id/SearchRecipeName" />
 
                     <TextView
                         android:id="@+id/RandomCocktailCountry"
@@ -84,7 +84,7 @@
                         android:textStyle="italic"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/RandomCocktailCategory"
-                        app:layout_constraintTop_toBottomOf="@+id/RandomCocktailName" />
+                        app:layout_constraintTop_toBottomOf="@+id/SearchRecipeName" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
@@ -119,7 +119,7 @@
                         android:cropToPadding="false"
                         android:scaleType="fitCenter"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/key_lime_pie_image" />
