@@ -3,10 +3,6 @@ package com.example.foodalgorithms.ui.home;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -14,12 +10,9 @@ import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-
-import com.example.foodalgorithms.ui.search.food.SearchFoodAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,6 +25,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+
 import javax.net.ssl.HttpsURLConnection;
 
 public class HomeService extends Service {
@@ -40,7 +34,6 @@ public class HomeService extends Service {
     Runnable runnable;
     Handler handler = new Handler();
     String jsonData;
-
 
     @Nullable
     @Override
@@ -53,22 +46,22 @@ public class HomeService extends Service {
             return HomeService.this;
         }
     }
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         runnable = new Runnable() {
             @Override
             public void run() {
-                        String foodURL = "https://www.themealdb.com/api/json/v1/1/random.php";
-                        String cocktailURL = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
-                        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-                        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-                        if (networkInfo != null && networkInfo.isConnected()) {
-                            new HomeService.DownloadFoodRecipe().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,foodURL, "food");
-                            new HomeService.DownloadFoodRecipe().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,cocktailURL, "cocktail");
-                            //.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, imageURL);
-                        } else {
-                            Toast.makeText(getApplicationContext(), "no network connection", Toast.LENGTH_SHORT).show();
-                        }
+                String foodURL = "https://www.themealdb.com/api/json/v1/1/random.php";
+                String cocktailURL = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
+                ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+                if (networkInfo != null && networkInfo.isConnected()) {
+                    new HomeService.DownloadFoodRecipe().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, foodURL, "food");
+                    new HomeService.DownloadFoodRecipe().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, cocktailURL, "cocktail");
+                } else {
+                    Toast.makeText(getApplicationContext(), "no network connection", Toast.LENGTH_SHORT).show();
+                }
 
             }
         };
@@ -102,7 +95,7 @@ public class HomeService extends Service {
                     Intent intent = new Intent("homeRandomRecipeData");
 
                     intent.putExtra("idMeal", idMeal);
-                    intent.putExtra("strMeal",  strMeal);
+                    intent.putExtra("strMeal", strMeal);
                     intent.putExtra("strCategory", strCategory);
                     intent.putExtra("strArea", strArea);
                     intent.putExtra("strMealThumb", strMealThumb);
@@ -118,7 +111,7 @@ public class HomeService extends Service {
 
                     Intent intent = new Intent("homeRandomCocktailData");
                     intent.putExtra("idDrink", idDrink);
-                    intent.putExtra("strDrink",  strDrink);
+                    intent.putExtra("strDrink", strDrink);
                     intent.putExtra("strCategory", strCategory);
                     intent.putExtra("strAlcoholic", strAlcoholic);
                     intent.putExtra("strDrinkThumb", strDrinkThumb);
@@ -129,7 +122,7 @@ public class HomeService extends Service {
             }
         }
 
-        private String  downloadFromURL(String url) {
+        private String downloadFromURL(String url) {
             InputStream is = null;
             StringBuffer result = new StringBuffer();
             try {
@@ -159,7 +152,5 @@ public class HomeService extends Service {
             }
             return result.toString();
         }
-
-
     }
 }

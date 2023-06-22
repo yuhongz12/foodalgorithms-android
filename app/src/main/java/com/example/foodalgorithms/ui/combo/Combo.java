@@ -1,8 +1,5 @@
 package com.example.foodalgorithms.ui.combo;
 
-import com.example.foodalgorithms.ui.cocktail.Cocktail;
-import com.example.foodalgorithms.ui.food.Food;
-
 public class Combo {
 
     String comboId;

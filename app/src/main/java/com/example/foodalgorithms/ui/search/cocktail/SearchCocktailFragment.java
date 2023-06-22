@@ -18,13 +18,9 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.foodalgorithms.R;
 import com.example.foodalgorithms.ui.search.SearchViewModel;
-import com.example.foodalgorithms.ui.search.food.ResultFoodItem;
-import com.example.foodalgorithms.ui.search.food.SearchFoodAdapter;
-import com.example.foodalgorithms.ui.search.food.SearchFoodFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,6 +52,7 @@ public class SearchCocktailFragment
     SearchCocktailAdapter cocktailAdapter;
 
     SearchViewModel viewModel;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +70,7 @@ public class SearchCocktailFragment
         searchCocktailRecyclerView = view.findViewById(R.id.SearchCocktailRecyclerView);
         cocktailAdapter = new SearchCocktailAdapter(getContext(), cocktailItemList);
         searchCocktailRecyclerView.setAdapter(cocktailAdapter);
-        searchCocktailRecyclerView.setLayoutManager( new GridLayoutManager(getContext(),2));
+        searchCocktailRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         searchCocktailInput.setText(viewModel.getCocktailSearchText().getValue());
         searchCocktailInput.addTextChangedListener(new TextWatcher() {
@@ -81,10 +78,12 @@ public class SearchCocktailFragment
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
+
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 viewModel.getCocktailSearchText().setValue(charSequence.toString());
             }
+
             @Override
             public void afterTextChanged(Editable editable) {
 
@@ -97,9 +96,9 @@ public class SearchCocktailFragment
                 cocktailItemList.clear();
                 cocktailAdapter.notifyDataSetChanged();
                 String foodURL = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + searchTerm;
-                new SearchCocktailTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,foodURL);
+                new SearchCocktailTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, foodURL);
                 searchCocktailInput.clearFocus();
-                InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
             }
         });
@@ -112,6 +111,7 @@ public class SearchCocktailFragment
     class SearchCocktailTask extends AsyncTask<String, Void, String> {
 
         String jsonData;
+
         @Override
         protected String doInBackground(String... urls) {
             jsonData = downloadFromURL(urls[0]);
@@ -126,7 +126,7 @@ public class SearchCocktailFragment
                 //    if (cocktailOrFood.equals("food")) {
                 Log.i("JSON FOOD", s);
                 JSONArray arr = jsonObject.getJSONArray("drinks");
-                for (int i=0; i < arr.length(); i++) {
+                for (int i = 0; i < arr.length(); i++) {
                     JSONObject meal = arr.getJSONObject(i);
                     int idDrink = meal.getInt("idDrink");
                     String strDrink = meal.getString("strDrink");
@@ -140,7 +140,7 @@ public class SearchCocktailFragment
             }
         }
 
-        private String  downloadFromURL(String url) {
+        private String downloadFromURL(String url) {
             InputStream is = null;
             StringBuffer result = new StringBuffer();
             try {

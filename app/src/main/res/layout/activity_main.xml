@@ -1,23 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-
-<!--&lt;!&ndash;    <fragment&ndash;&gt;-->
-<!--&lt;!&ndash;        android:id="@+id/nav_host_fragment_activity_main"&ndash;&gt;-->
-<!--&lt;!&ndash;        android:name="androidx.navigation.fragment.NavHostFragment"&ndash;&gt;-->
-<!--&lt;!&ndash;        android:layout_width="411dp"&ndash;&gt;-->
-<!--&lt;!&ndash;        android:layout_height="675dp"&ndash;&gt;-->
-<!--&lt;!&ndash;        android:layout_marginTop="16dp"&ndash;&gt;-->
-<!--&lt;!&ndash;        app:defaultNavHost="true"&ndash;&gt;-->
-<!--&lt;!&ndash;        app:layout_constraintEnd_toEndOf="parent"&ndash;&gt;-->
-<!--&lt;!&ndash;        app:layout_constraintStart_toStartOf="parent"&ndash;&gt;-->
-<!--&lt;!&ndash;        app:layout_constraintTop_toTopOf="parent"&ndash;&gt;-->
-<!--&lt;!&ndash;        app:navGraph="@navigation/mobile_navigation" />&ndash;&gt;-->
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"

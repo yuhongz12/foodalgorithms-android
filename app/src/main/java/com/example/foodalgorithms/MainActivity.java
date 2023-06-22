@@ -1,6 +1,5 @@
 package com.example.foodalgorithms;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -15,8 +14,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view);
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int itemId = item.getItemId();
@@ -35,14 +31,12 @@ public class MainActivity extends AppCompatActivity {
                 } else if (itemId == R.id.navigation_search) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerViewHome, new SearchFragment()).commit();
                     return true;
-                }
-                else if (itemId == R.id.navigation_combo) {
+                } else if (itemId == R.id.navigation_combo) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerViewHome, new ComboFragment()).commit();
                     return true;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerViewHome, new ProfileFragment()).commit();
                 return true;
-
             }
         });
 

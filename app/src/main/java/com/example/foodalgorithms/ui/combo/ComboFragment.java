@@ -24,15 +24,15 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ComboFragment extends Fragment {
-    
+
     FloatingActionButton comboFAB;
 
     private ComboViewModel mViewModel;
-     RecyclerView comboRecyclerView;
+    RecyclerView comboRecyclerView;
 
-     ComboAdapter comboAdapter;
+    ComboAdapter comboAdapter;
 
-     List<Combo> comboList = new ArrayList<>( Arrays.asList(new Combo("combo name", "food", "cocktail")));
+    List<Combo> comboList = new ArrayList<>(Arrays.asList(new Combo("combo name", "food", "cocktail")));
 
     public static ComboFragment newInstance() {
         return new ComboFragment();
@@ -47,7 +47,7 @@ public class ComboFragment extends Fragment {
         comboAdapter = new ComboAdapter(getContext(), comboList);
         comboRecyclerView.setAdapter(comboAdapter);
         comboRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        
+
         comboFAB = view.findViewById(R.id.ComboFAB);
         comboFAB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +58,6 @@ public class ComboFragment extends Fragment {
 
         return view;
     }
- 
+
 
 }

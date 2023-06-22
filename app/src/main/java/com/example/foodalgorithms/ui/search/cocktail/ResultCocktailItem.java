@@ -1,12 +1,12 @@
 package com.example.foodalgorithms.ui.search.cocktail;
 
-public class ResultCocktailItem  {
+public class ResultCocktailItem {
 
     String strDrink;
     String strDrinkThumb;
     int idDrink;
 
-    public ResultCocktailItem(int idDrink ,String strDrink, String strDrinkThumb) {
+    public ResultCocktailItem(int idDrink, String strDrink, String strDrinkThumb) {
         this.strDrink = strDrink;
         this.strDrinkThumb = strDrinkThumb;
         this.idDrink = idDrink;

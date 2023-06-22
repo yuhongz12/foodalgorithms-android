@@ -25,7 +25,7 @@ import com.example.foodalgorithms.ui.food.FoodDetailFragment;
 import java.io.InputStream;
 import java.util.List;
 
-public class SearchCocktailAdapter  extends RecyclerView.Adapter<SearchCocktailAdapter.CocktailViewHolder> {
+public class SearchCocktailAdapter extends RecyclerView.Adapter<SearchCocktailAdapter.CocktailViewHolder> {
 
     Context context;
     List<ResultCocktailItem> cocktailItemList;
@@ -70,6 +70,7 @@ public class SearchCocktailAdapter  extends RecyclerView.Adapter<SearchCocktailA
         CardView cardView;
         ImageView imageView;
         TextView nameTV;
+
         public CocktailViewHolder(@NonNull View itemView) {
             super(itemView);
             cardView = itemView.findViewById(R.id.ComboFoodCard);
@@ -81,6 +82,7 @@ public class SearchCocktailAdapter  extends RecyclerView.Adapter<SearchCocktailA
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
+
         public DownloadImageTask(ImageView bmImage) {
             this.bmImage = bmImage;
         }
@@ -97,6 +99,7 @@ public class SearchCocktailAdapter  extends RecyclerView.Adapter<SearchCocktailA
             }
             return bmp;
         }
+
         protected void onPostExecute(Bitmap result) {
             bmImage.setImageBitmap(result);
         }

@@ -1,9 +1,7 @@
 package com.example.foodalgorithms.ui.combo;
 
-import android.content.Intent;
-import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
@@ -23,8 +21,6 @@ public class ComboDetails extends Fragment {
     CardView comboCocktailCard;
 
 
-
-
     public ComboDetails() {
         // Required empty public constructor
     }
@@ -35,9 +31,7 @@ public class ComboDetails extends Fragment {
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             comboId = bundle.getString("comboId");
-
         }
-
     }
 
     @Override
@@ -45,9 +39,8 @@ public class ComboDetails extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_combo_details, container, false);
         TextView tv = view.findViewById(R.id.ComboDetailName);
-       // tv.setText(comboId);
         comboFoodCard = view.findViewById(R.id.ComboFoodCard);
-        comboCocktailCard= view.findViewById(R.id.ComboCocktailRecipeCard);
+        comboCocktailCard = view.findViewById(R.id.ComboCocktailRecipeCard);
 
         comboFoodCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +61,6 @@ public class ComboDetails extends Fragment {
                 getParentFragmentManager().beginTransaction().replace(R.id.fragmentContainerViewHome, foodDetailFragment).addToBackStack(null).commit();
             }
         });
-
 
         return view;
     }

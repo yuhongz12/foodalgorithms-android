@@ -1,6 +1,5 @@
 package com.example.foodalgorithms.ui.food;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -16,12 +15,9 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.VideoView;
 
 import com.example.foodalgorithms.DownloadImageTask;
 import com.example.foodalgorithms.R;
-import com.example.foodalgorithms.ui.home.HomeFragment;
-import com.example.foodalgorithms.ui.home.HomeService;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,7 +30,6 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -66,7 +61,7 @@ public class FoodDetailFragment extends Fragment {
         foodDetailsImage = view.findViewById(R.id.FoodDetailsImage);
         foodDetailsVideo = view.findViewById(R.id.FoodDetailsVideoView);
         String foodURL = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=" + idMeal;
-        new DownloadFoodRecipe().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,foodURL);
+        new DownloadFoodRecipe().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, foodURL);
         return view;
     }
 
@@ -85,31 +80,31 @@ public class FoodDetailFragment extends Fragment {
             super.onPostExecute(s);
             try {
                 JSONObject jsonObject = new JSONObject(s);
-            //    if (cocktailOrFood.equals("food")) {
-                    Log.i("JSON FOOD", s);
-                    JSONObject meal = jsonObject.getJSONArray("meals").getJSONObject(0);
-                    String strMeal = meal.getString("strMeal");
-                    String strCategory = meal.getString("strCategory");
-                    String strArea = meal.getString("strArea");
-                    String strMealThumb = meal.getString("strMealThumb");
-                    String strYoutube = meal.getString("strYoutube");
-                    StringBuilder ingredientsBuilder = new StringBuilder();
-                    for (int i = 1; i <= 20; i++) {
-                        String strIngredients = meal.getString("strIngredient" + i);
-                        String strMeasure = meal.getString("strMeasure" + i);
-                        if (strIngredients.equals("null") || strIngredients.isEmpty()) {
-                            break;
-                        } else {
-                            ingredientsBuilder.append(i).append(". ").append(strMeasure).append(" ").append(strIngredients).append("\n");
-                        }
+                //    if (cocktailOrFood.equals("food")) {
+                Log.i("JSON FOOD", s);
+                JSONObject meal = jsonObject.getJSONArray("meals").getJSONObject(0);
+                String strMeal = meal.getString("strMeal");
+                String strCategory = meal.getString("strCategory");
+                String strArea = meal.getString("strArea");
+                String strMealThumb = meal.getString("strMealThumb");
+                String strYoutube = meal.getString("strYoutube");
+                StringBuilder ingredientsBuilder = new StringBuilder();
+                for (int i = 1; i <= 20; i++) {
+                    String strIngredients = meal.getString("strIngredient" + i);
+                    String strMeasure = meal.getString("strMeasure" + i);
+                    if (strIngredients.equals("null") || strIngredients.isEmpty()) {
+                        break;
+                    } else {
+                        ingredientsBuilder.append(i).append(". ").append(strMeasure).append(" ").append(strIngredients).append("\n");
                     }
-                    String strInstructions = meal.getString("strInstructions");
-                    foodDetailsName.setText(strMeal);
-                    foodDetailsCategory.setText(strCategory);
-                    foodDetailsCountry.setText(strArea);
-                    foodDetailsIngredientsText.setText(ingredientsBuilder.toString());
-                    foodDetailsDirectionsText.setText(strInstructions);
-                    new DownloadImageTask(foodDetailsImage).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, strMealThumb);
+                }
+                String strInstructions = meal.getString("strInstructions");
+                foodDetailsName.setText(strMeal);
+                foodDetailsCategory.setText(strCategory);
+                foodDetailsCountry.setText(strArea);
+                foodDetailsIngredientsText.setText(ingredientsBuilder.toString());
+                foodDetailsDirectionsText.setText(strInstructions);
+                new DownloadImageTask(foodDetailsImage).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, strMealThumb);
 
                 foodDetailsVideo.setWebViewClient(new WebViewClient());
                 foodDetailsVideo.getSettings().setJavaScriptEnabled(true);
@@ -144,7 +139,7 @@ public class FoodDetailFragment extends Fragment {
             }
         }
 
-        private String  downloadFromURL(String url) {
+        private String downloadFromURL(String url) {
             InputStream is = null;
             StringBuffer result = new StringBuffer();
             try {

@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -27,20 +25,6 @@ import com.example.foodalgorithms.DownloadImageTask;
 import com.example.foodalgorithms.R;
 import com.example.foodalgorithms.ui.cocktail.CocktailDetailFragment;
 import com.example.foodalgorithms.ui.food.FoodDetailFragment;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-
-import javax.net.ssl.HttpsURLConnection;
 
 public class HomeFragment extends Fragment {
     CardView randomFoodCard;
@@ -92,7 +76,7 @@ public class HomeFragment extends Fragment {
                         FoodDetailFragment foodDetailFragment = new FoodDetailFragment();
                         Bundle arguments = new Bundle();
                         Log.i("Home ID MEAL", idMeal + "");
-                        arguments.putInt("idMeal",  idMeal);
+                        arguments.putInt("idMeal", idMeal);
                         foodDetailFragment.setArguments(arguments);
                         getParentFragmentManager().beginTransaction().replace(R.id.fragmentContainerViewHome, foodDetailFragment).addToBackStack(null).commit();
                     }
@@ -123,7 +107,7 @@ public class HomeFragment extends Fragment {
                     public void onClick(View view) {
                         CocktailDetailFragment cocktailDetailFragment = new CocktailDetailFragment();
                         Bundle arguments = new Bundle();
-                        arguments.putInt("idDrink",  idDrink);
+                        arguments.putInt("idDrink", idDrink);
                         cocktailDetailFragment.setArguments(arguments);
                         getParentFragmentManager().beginTransaction().replace(R.id.fragmentContainerViewHome, cocktailDetailFragment).addToBackStack(null).commit();
                     }
@@ -134,8 +118,6 @@ public class HomeFragment extends Fragment {
         getContext().registerReceiver(cocktailBr, new IntentFilter("homeRandomCocktailData"));
         Intent homeServiceIntent = new Intent(getContext(), HomeService.class);
         getActivity().startService(homeServiceIntent);
-
-
 
         randomCocktailCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,113 +131,6 @@ public class HomeFragment extends Fragment {
                 getParentFragmentManager().beginTransaction().replace(R.id.fragmentContainerViewHome, foodDetailFragment).addToBackStack(null).commit();
             }
         });
-
-
         return view;
     }
-
-//    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-//        ImageView bmImage;
-//        public DownloadImageTask(ImageView bmImage) {
-//            this.bmImage = bmImage;
-//        }
-//
-//        protected Bitmap doInBackground(String... urls) {
-//            String urldisplay = urls[0];
-//            Bitmap bmp = null;
-//            try {
-//                InputStream in = new java.net.URL(urldisplay).openStream();
-//                bmp = BitmapFactory.decodeStream(in);
-//            } catch (Exception e) {
-//                Log.e("Error", e.getMessage());
-//                e.printStackTrace();
-//            }
-//            return bmp;
-//        }
-//        protected void onPostExecute(Bitmap result) {
-//            bmImage.setImageBitmap(result);
-//        }
-//    }
-
 }
-
-//    private class DownloadFoodRecipe extends AsyncTask<String, Void, String> {
-//        @Override
-//        protected String doInBackground(String... urls) {
-//            jsonData = downloadFromURL(urls[0]);
-//            return jsonData;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(String s) {
-//            super.onPostExecute(s);
-//            try {
-//                JSONObject jsonObject = new JSONObject(s);
-//                Log.i("JSON HOJME", s);
-//                // get city name
-////                String city = jsonObject.getString("name");
-////                // get the temp, temp_min, temp_max, humidity
-////                JSONObject mainObject = jsonObject.getJSONObject("main");
-////
-////                double temp = mainObject.getDouble("temp");
-////                double minTemp = mainObject.getDouble("temp_min");
-////                double maxTemp = mainObject.getDouble("temp_max");
-////                int humidity = mainObject.getInt("humidity");
-////                // get the weather icon
-////                JSONArray weatherArray = jsonObject.getJSONArray("weather");
-////                JSONObject weatherObject = weatherArray.getJSONObject(0);
-////                String weatherIcon = weatherObject.getString("main");
-////                System.out.println(weatherIcon);
-////                // get the wind speed
-////                JSONObject windObject = jsonObject.getJSONObject("wind");
-////                double windSpeed = windObject.getDouble("speed");
-////
-////                // send the information to the broadcast, so that it can generate a notification
-////                // create a weather action
-//                Intent intent = new Intent("weather");
-////                intent.putExtra("city", city);
-////                intent.putExtra("temp", temp);
-////                intent.putExtra("minTemp", minTemp);
-////                intent.putExtra("maxTemp", maxTemp);
-////                intent.putExtra("humidity", humidity);
-////                intent.putExtra("weatherIcon", weatherIcon);
-////                intent.putExtra("windSpeed", windSpeed);
-////                intent.putExtra("date", new Date().getTime());
-//
-//
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        private String  downloadFromURL(String url) {
-//            InputStream is = null;
-//            StringBuffer result = new StringBuffer();
-//            try {
-//                URL myURL = new URL(url);
-//                HttpsURLConnection connection = (HttpsURLConnection) myURL.openConnection();
-//                connection.setReadTimeout(3000);
-//                connection.setConnectTimeout(3000);
-//                connection.setRequestMethod("GET");
-//                connection.setDoInput(true);
-//                connection.connect();
-//                int responseCode = connection.getResponseCode();
-//                if (responseCode != HttpsURLConnection.HTTP_OK) {
-//                    throw new IOException("HTTP error code: " + responseCode);
-//                }
-//                is = connection.getInputStream();
-//                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
-//                String line = "";
-//                while ((line = bufferedReader.readLine()) != null) {
-//                    result.append(line);
-//                }
-//            } catch (MalformedURLException e) {
-//                throw new RuntimeException(e);
-//            } catch (ProtocolException e) {
-//                throw new RuntimeException(e);
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-//            return result.toString();
-//        }
-//    }

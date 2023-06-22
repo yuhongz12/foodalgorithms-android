@@ -33,21 +33,23 @@ public class SearchFragment extends Fragment {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                Log.i("FOOD ID" , R.id.SearchFoodTab + "" );
+                Log.i("FOOD ID", R.id.SearchFoodTab + "");
                 Log.i("COCKTAIL ID", R.id.SearchCocktailTab + "");
                 Log.i("CLICKED TAB SEARCH", tab.getText() + " " + tab.getPosition());
                 if (tab.getText() != null && tab.getPosition() == 0) {
                     getChildFragmentManager().beginTransaction().replace(R.id.SearchFragmentContainer, new SearchFoodFragment()).addToBackStack(null).commit();
-                } else if (tab.getText() != null && tab.getPosition() == 1){
+                } else if (tab.getText() != null && tab.getPosition() == 1) {
                     getChildFragmentManager().beginTransaction().replace(R.id.SearchFragmentContainer, new SearchCocktailFragment()).addToBackStack(null).commit();
                 }
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) { }
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab) { }
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
         });
 
 

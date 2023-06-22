@@ -61,13 +61,13 @@ public class SearchFoodFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-       View  view = inflater.inflate(R.layout.fragment_search_food, container, false);
-       searchFoodInput = view.findViewById(R.id.SearchFoodInput);
-       searchFoodButton = view.findViewById(R.id.SearchFoodButton);
-       searchFoodRecylerView = view.findViewById(R.id.SearchCocktailRecyclerView);
+        View view = inflater.inflate(R.layout.fragment_search_food, container, false);
+        searchFoodInput = view.findViewById(R.id.SearchFoodInput);
+        searchFoodButton = view.findViewById(R.id.SearchFoodButton);
+        searchFoodRecylerView = view.findViewById(R.id.SearchCocktailRecyclerView);
         searchFoodAdapter = new SearchFoodAdapter(getContext(), foodList);
         searchFoodRecylerView.setAdapter(searchFoodAdapter);
-        searchFoodRecylerView.setLayoutManager( new GridLayoutManager(getContext(),2));
+        searchFoodRecylerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
         searchFoodInput.setText(viewModel.getFoodSearchText().getValue());
         searchFoodInput.addTextChangedListener(new TextWatcher() {
@@ -75,95 +75,99 @@ public class SearchFoodFragment extends Fragment {
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
+
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 viewModel.getFoodSearchText().setValue(charSequence.toString());
             }
+
             @Override
-            public void afterTextChanged(Editable editable) { }
+            public void afterTextChanged(Editable editable) {
+            }
         });
-       searchFoodButton.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               String searchTerm = searchFoodInput.getText().toString();
-               // run background service to fetch api search result
-                   foodList.clear();
-                   searchFoodAdapter.notifyDataSetChanged();
-                   String foodURL = "https://www.themealdb.com/api/json/v1/1/search.php?s=" + searchTerm;
-                   new SearchFoodTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,foodURL);
-                   searchFoodInput.clearFocus();
-                   InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                   imm.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
-           }
-       });
+        searchFoodButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String searchTerm = searchFoodInput.getText().toString();
+                // run background service to fetch api search result
+                foodList.clear();
+                searchFoodAdapter.notifyDataSetChanged();
+                String foodURL = "https://www.themealdb.com/api/json/v1/1/search.php?s=" + searchTerm;
+                new SearchFoodTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, foodURL);
+                searchFoodInput.clearFocus();
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
+            }
+        });
 
-       searchFoodButton.performClick();
+        searchFoodButton.performClick();
 
-       return view;
+        return view;
     }
 
     class SearchFoodTask extends AsyncTask<String, Void, String> {
 
-            String jsonData;
-            @Override
-            protected String doInBackground(String... urls) {
-                jsonData = downloadFromURL(urls[0]);
-                return jsonData;
-            }
+        String jsonData;
 
-            @Override
-            protected void onPostExecute(String s) {
-                super.onPostExecute(s);
-                try {
-                    JSONObject jsonObject = new JSONObject(s);
-                    //    if (cocktailOrFood.equals("food")) {
-                    Log.i("JSON FOOD", s);
-                    JSONArray arr = jsonObject.getJSONArray("meals");
-                    for (int i=0; i < arr.length(); i++) {
-                        JSONObject meal = arr.getJSONObject(i);
-                        int idMeal = meal.getInt("idMeal");
-                        String strMeal = meal.getString("strMeal");
-                        String strMealThumb = meal.getString("strMealThumb");
-                        ResultFoodItem resultFoodItem = new ResultFoodItem(idMeal, strMeal, strMealThumb);
-                        foodList.add(resultFoodItem);
-                    }
-                    searchFoodAdapter.notifyDataSetChanged();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            private String  downloadFromURL(String url) {
-                InputStream is = null;
-                StringBuffer result = new StringBuffer();
-                try {
-                    URL myURL = new URL(url);
-                    HttpsURLConnection connection = (HttpsURLConnection) myURL.openConnection();
-                    connection.setReadTimeout(3000);
-                    connection.setConnectTimeout(3000);
-                    connection.setRequestMethod("GET");
-                    connection.setDoInput(true);
-                    connection.connect();
-                    int responseCode = connection.getResponseCode();
-                    if (responseCode != HttpsURLConnection.HTTP_OK) {
-                        throw new IOException("HTTP error code: " + responseCode);
-                    }
-                    is = connection.getInputStream();
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
-                    String line = "";
-                    while ((line = bufferedReader.readLine()) != null) {
-                        result.append(line);
-                    }
-                } catch (MalformedURLException e) {
-                    throw new RuntimeException(e);
-                } catch (ProtocolException e) {
-                    throw new RuntimeException(e);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-                return result.toString();
-            }
-
-
+        @Override
+        protected String doInBackground(String... urls) {
+            jsonData = downloadFromURL(urls[0]);
+            return jsonData;
         }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            try {
+                JSONObject jsonObject = new JSONObject(s);
+                //    if (cocktailOrFood.equals("food")) {
+                Log.i("JSON FOOD", s);
+                JSONArray arr = jsonObject.getJSONArray("meals");
+                for (int i = 0; i < arr.length(); i++) {
+                    JSONObject meal = arr.getJSONObject(i);
+                    int idMeal = meal.getInt("idMeal");
+                    String strMeal = meal.getString("strMeal");
+                    String strMealThumb = meal.getString("strMealThumb");
+                    ResultFoodItem resultFoodItem = new ResultFoodItem(idMeal, strMeal, strMealThumb);
+                    foodList.add(resultFoodItem);
+                }
+                searchFoodAdapter.notifyDataSetChanged();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        private String downloadFromURL(String url) {
+            InputStream is = null;
+            StringBuffer result = new StringBuffer();
+            try {
+                URL myURL = new URL(url);
+                HttpsURLConnection connection = (HttpsURLConnection) myURL.openConnection();
+                connection.setReadTimeout(3000);
+                connection.setConnectTimeout(3000);
+                connection.setRequestMethod("GET");
+                connection.setDoInput(true);
+                connection.connect();
+                int responseCode = connection.getResponseCode();
+                if (responseCode != HttpsURLConnection.HTTP_OK) {
+                    throw new IOException("HTTP error code: " + responseCode);
+                }
+                is = connection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
+                String line = "";
+                while ((line = bufferedReader.readLine()) != null) {
+                    result.append(line);
+                }
+            } catch (MalformedURLException e) {
+                throw new RuntimeException(e);
+            } catch (ProtocolException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            return result.toString();
+        }
+
+
+    }
 }

@@ -20,10 +20,12 @@ import java.util.List;
 public class ComboAdapter extends RecyclerView.Adapter<ComboAdapter.ComboViewHolder> {
     Context context;
     List<Combo> comboList = new ArrayList<>();
+
     public ComboAdapter(Context context, List<Combo> comboList) {
         this.comboList = comboList;
         this.context = context;
     }
+
     @NonNull
     @Override
     public ComboViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -35,7 +37,7 @@ public class ComboAdapter extends RecyclerView.Adapter<ComboAdapter.ComboViewHol
     @Override
     public void onBindViewHolder(@NonNull ComboViewHolder holder, int position) {
         holder.comboItemName.setText(comboList.get(position).getComboName());
-        holder.comboItemFoodName.setText(comboList.get(position).getComboFood() );
+        holder.comboItemFoodName.setText(comboList.get(position).getComboFood());
         holder.comboItemCocktailName.setText(comboList.get(position).getComboCocktail());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

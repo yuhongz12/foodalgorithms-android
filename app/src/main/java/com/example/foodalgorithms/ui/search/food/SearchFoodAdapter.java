@@ -25,12 +25,12 @@ import com.example.foodalgorithms.ui.food.FoodDetailFragment;
 import java.io.InputStream;
 import java.util.List;
 
-public class SearchFoodAdapter extends RecyclerView.Adapter<SearchFoodAdapter.FoodViewHolder>{
+public class SearchFoodAdapter extends RecyclerView.Adapter<SearchFoodAdapter.FoodViewHolder> {
 
     Context context;
     List<ResultFoodItem> foodItemList;
 
-    public SearchFoodAdapter (Context context, List<ResultFoodItem> foodItemList) {
+    public SearchFoodAdapter(Context context, List<ResultFoodItem> foodItemList) {
         this.context = context;
         this.foodItemList = foodItemList;
     }
@@ -70,6 +70,7 @@ public class SearchFoodAdapter extends RecyclerView.Adapter<SearchFoodAdapter.Fo
         CardView cardView;
         ImageView imageView;
         TextView nameTV;
+
         public FoodViewHolder(@NonNull View itemView) {
             super(itemView);
             cardView = itemView.findViewById(R.id.ComboFoodCard);
