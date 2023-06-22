@@ -17,6 +17,7 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+
             <TextView
                 android:id="@+id/RandomRecipeCardLabel"
                 android:layout_width="match_parent"
@@ -24,9 +25,8 @@
                 android:text="Random Recipe"
                 android:textStyle="bold" />
 
-
             <androidx.cardview.widget.CardView
-                android:id="@+id/ComboFoodCard"
+                android:id="@+id/RandomFoodCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="12dp">
@@ -36,7 +36,7 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:id="@+id/ComboFoodImage"
+                        android:id="@+id/RandomFoodImage"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
@@ -47,7 +47,7 @@
                         tools:src="@tools:sample/avatars" />
 
                     <TextView
-                        android:id="@+id/ComboFoodName"
+                        android:id="@+id/RandomFoodName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -57,10 +57,10 @@
                         android:textStyle="bold"
                         android:typeface="normal"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/ComboFoodImage" />
+                        app:layout_constraintTop_toBottomOf="@+id/RandomFoodImage" />
 
                     <TextView
-                        android:id="@+id/ComboFoodCategory"
+                        android:id="@+id/RandomFoodCategory"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -71,10 +71,10 @@
                         android:textStyle="italic"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/ComboFoodName" />
+                        app:layout_constraintTop_toBottomOf="@+id/RandomFoodName" />
 
                     <TextView
-                        android:id="@+id/ComboFoodCountry"
+                        android:id="@+id/RandomFoodCountry"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -83,8 +83,8 @@
                         android:text="Country"
                         android:textStyle="italic"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/ComboFoodCategory"
-                        app:layout_constraintTop_toBottomOf="@+id/ComboFoodName" />
+                        app:layout_constraintStart_toEndOf="@+id/RandomFoodCategory"
+                        app:layout_constraintTop_toBottomOf="@+id/RandomFoodName" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
@@ -102,7 +102,7 @@
                 android:textStyle="bold" />
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/RandomCocktailRecipeCard"
+                android:id="@+id/RandomCocktailCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="12dp">
@@ -112,7 +112,7 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:id="@+id/RandomRecipeImage"
+                        android:id="@+id/RandomCocktailImage"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
@@ -125,7 +125,7 @@
                         app:srcCompat="@drawable/key_lime_pie_image" />
 
                     <TextView
-                        android:id="@+id/RandomRecipeName"
+                        android:id="@+id/RandomCocktailName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -135,10 +135,10 @@
                         android:textStyle="bold"
                         android:typeface="normal"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/RandomRecipeImage" />
+                        app:layout_constraintTop_toBottomOf="@+id/RandomCocktailImage" />
 
                     <TextView
-                        android:id="@+id/RandomRecipeCategory"
+                        android:id="@+id/RandomCocktailCategory"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -149,10 +149,10 @@
                         android:textStyle="italic"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/RandomRecipeName" />
+                        app:layout_constraintTop_toBottomOf="@+id/RandomCocktailName" />
 
                     <TextView
-                        android:id="@+id/RandomRecipeCountry"
+                        android:id="@+id/RandomCocktailCountry"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -161,8 +161,8 @@
                         android:text="Country"
                         android:textStyle="italic"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/RandomRecipeCategory"
-                        app:layout_constraintTop_toBottomOf="@+id/RandomRecipeName" />
+                        app:layout_constraintStart_toEndOf="@+id/RandomCocktailCategory"
+                        app:layout_constraintTop_toBottomOf="@+id/RandomCocktailName" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>

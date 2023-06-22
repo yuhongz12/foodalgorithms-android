@@ -72,7 +72,7 @@ public class SearchCocktailAdapter  extends RecyclerView.Adapter<SearchCocktailA
         public CocktailViewHolder(@NonNull View itemView) {
             super(itemView);
             cardView = itemView.findViewById(R.id.ComboFoodCard);
-            imageView = itemView.findViewById(R.id.ComboFoodImage);
+            imageView = itemView.findViewById(R.id.RandomFoodImage);
             nameTV = itemView.findViewById(R.id.ComboFoodName);
 
         }
