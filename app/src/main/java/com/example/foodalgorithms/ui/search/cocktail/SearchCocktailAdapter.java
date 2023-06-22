@@ -54,7 +54,7 @@ public class SearchCocktailAdapter  extends RecyclerView.Adapter<SearchCocktailA
                 AppCompatActivity activity = (AppCompatActivity) context;
                 CocktailDetailFragment cocktailDetailFragment = new CocktailDetailFragment();
                 Bundle arguments = new Bundle();
-                arguments.putString("idMeal", String.valueOf(cocktailItemList.get(holder.getAdapterPosition()).getIdDrink()));
+                arguments.putInt("idDrink", cocktailItemList.get(holder.getAdapterPosition()).getIdDrink());
                 cocktailDetailFragment.setArguments(arguments);
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerViewHome, cocktailDetailFragment).addToBackStack(null).commit();
             }

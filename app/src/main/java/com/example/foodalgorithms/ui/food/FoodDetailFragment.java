@@ -39,14 +39,6 @@ import java.util.Arrays;
 import javax.net.ssl.HttpsURLConnection;
 
 public class FoodDetailFragment extends Fragment {
-
-    Food food = new Food(52859, "Key Lime Pie", "American", "Dessert",
-            Arrays.asList("Digestive Biscuits", "Butter", "Condensed Milk", "Egg Yolks", "Lime", "Double Cream", "Icing Sugar", "Lime"),
-            Arrays.asList("300g","150g", "400g", "3", "4", "300ml ", "1 tbls", "to serve"),
-            "Heat the oven to 160C/fan 140C/gas 3. Whizz the biscuits to crumbs in a food processor (or put in a strong plastic bag and bash with a rolling pin). Mix with the melted butter and press into the base and up the sides of a 22cm loose-based tart tin. Bake in the oven for 10 minutes. Remove and cool.\r\nPut the egg yolks in a large bowl and whisk for a minute with electric beaters. Add the condensed milk and whisk for 3 minutes then add the zest and juice and whisk again for 3 minutes. Pour the filling into the cooled base then put back in the oven for 15 minutes. Cool then chill for at least 3 hours or overnight if you like.\r\nWhen you are ready to serve, carefully remove the pie from the tin and put on a serving plate. To decorate, softly whip together the cream and icing sugar. Dollop or pipe the cream onto the top of the pie and finish with extra lime zest.",
-            "https://www.themealdb.com/images/media/meals/qpqtuu1511386216.jpg",
-            "https://www.youtube.com/watch?v=q4Rz7tUkX9A");
-
     TextView foodDetailsName;
     TextView foodDetailsCategory;
     TextView foodDetailsCountry;
@@ -56,10 +48,6 @@ public class FoodDetailFragment extends Fragment {
     WebView foodDetailsVideo;
 
     int idMeal;
-
-    public static FoodDetailFragment newInstance() {
-        return new FoodDetailFragment();
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -117,8 +105,8 @@ public class FoodDetailFragment extends Fragment {
                     }
                     String strInstructions = meal.getString("strInstructions");
                     foodDetailsName.setText(strMeal);
-                    foodDetailsCountry.setText(strCategory);
-                    foodDetailsCategory.setText(strArea);
+                    foodDetailsCategory.setText(strCategory);
+                    foodDetailsCountry.setText(strArea);
                     foodDetailsIngredientsText.setText(ingredientsBuilder.toString());
                     foodDetailsDirectionsText.setText(strInstructions);
                     new DownloadImageTask(foodDetailsImage).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, strMealThumb);
