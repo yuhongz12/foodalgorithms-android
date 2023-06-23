@@ -167,7 +167,5 @@ public class SearchFoodFragment extends Fragment {
             }
             return result.toString();
         }
-
-
     }
 }

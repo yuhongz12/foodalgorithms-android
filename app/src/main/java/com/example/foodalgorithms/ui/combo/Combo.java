@@ -7,6 +7,10 @@ public class Combo {
     String comboFood;
     String comboCocktail;
 
+    public Combo() {
+
+    }
+
     public Combo(String comboName, String comboFood, String comboCocktail) {
         this.comboName = comboName;
         this.comboFood = comboFood;

@@ -58,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     });
                 }else{
-                    Toast.makeText(RegisterActivity.this, "Enter a username and password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Enter a email and password", Toast.LENGTH_SHORT).show();
                 }
             }
         });

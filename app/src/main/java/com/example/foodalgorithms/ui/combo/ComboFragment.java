@@ -2,6 +2,7 @@ package com.example.foodalgorithms.ui.combo;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,11 @@ import android.widget.Toast;
 
 import com.example.foodalgorithms.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,7 +38,7 @@ public class ComboFragment extends Fragment {
 
     ComboAdapter comboAdapter;
 
-    List<Combo> comboList = new ArrayList<>(Arrays.asList(new Combo("combo name", "food", "cocktail")));
+    List<Combo> comboList;
 
     public static ComboFragment newInstance() {
         return new ComboFragment();
@@ -42,7 +48,22 @@ public class ComboFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_combo, container, false);
+        comboList = new ArrayList<>();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("combos");
 
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds : snapshot.getChildren()) {
+                    Combo combo = ds.getValue(Combo.class);
+                    comboList.add(combo);
+                    comboAdapter.notifyItemInserted(comboList.size());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
+        });
         comboRecyclerView = view.findViewById(R.id.ComboRecyclerView);
         comboAdapter = new ComboAdapter(getContext(), comboList);
         comboRecyclerView.setAdapter(comboAdapter);
@@ -52,6 +73,13 @@ public class ComboFragment extends Fragment {
         comboFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                Combo newCombo = new Combo("new combo ", "new combo recipe", "newcombo cocktail");
+//                comboList.add(newCombo);
+//                comboAdapter.notifyItemInserted(comboList.size());
+//                String newKey = databaseReference.push().getKey();
+//                databaseReference.child(newKey).setValue(newCombo);
+                Intent toCreateCombo = new Intent(getActivity(), CreateComboActivity.class);
+                startActivity(toCreateCombo);
                 Toast.makeText(getContext(), "Create Combo FAB", Toast.LENGTH_SHORT).show();
             }
         });
