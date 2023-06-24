@@ -49,6 +49,29 @@ public class ComboFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_combo, container, false);
         comboList = new ArrayList<>();
+
+        comboRecyclerView = view.findViewById(R.id.ComboRecyclerView);
+        comboAdapter = new ComboAdapter(getContext(), comboList);
+        comboRecyclerView.setAdapter(comboAdapter);
+        comboRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        comboFAB = view.findViewById(R.id.ComboFAB);
+        comboFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent toCreateCombo = new Intent(getActivity(), CreateComboActivity.class);
+                startActivity(toCreateCombo);
+            }
+        });
+
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        comboList.clear();
+        comboAdapter.notifyDataSetChanged();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("combos");
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -64,28 +87,5 @@ public class ComboFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) { }
         });
-        comboRecyclerView = view.findViewById(R.id.ComboRecyclerView);
-        comboAdapter = new ComboAdapter(getContext(), comboList);
-        comboRecyclerView.setAdapter(comboAdapter);
-        comboRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        comboFAB = view.findViewById(R.id.ComboFAB);
-        comboFAB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Combo newCombo = new Combo("new combo ", "new combo recipe", "newcombo cocktail");
-//                comboList.add(newCombo);
-//                comboAdapter.notifyItemInserted(comboList.size());
-//                String newKey = databaseReference.push().getKey();
-//                databaseReference.child(newKey).setValue(newCombo);
-                Intent toCreateCombo = new Intent(getActivity(), CreateComboActivity.class);
-                startActivity(toCreateCombo);
-                Toast.makeText(getContext(), "Create Combo FAB", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        return view;
     }
-
-
 }

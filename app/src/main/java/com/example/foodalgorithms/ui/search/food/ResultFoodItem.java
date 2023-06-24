@@ -8,6 +8,7 @@ public class ResultFoodItem {
     String strMeal;
     String strMealThumb;
 
+    public ResultFoodItem() {}
     public ResultFoodItem(int idMeal, String strMeal, String strMealThumb) {
         this.idMeal = idMeal;
         this.strMeal = strMeal;

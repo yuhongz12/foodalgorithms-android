@@ -6,6 +6,7 @@ public class ResultCocktailItem {
     String strDrinkThumb;
     int idDrink;
 
+    public ResultCocktailItem () {}
     public ResultCocktailItem(int idDrink, String strDrink, String strDrinkThumb) {
         this.strDrink = strDrink;
         this.strDrinkThumb = strDrinkThumb;

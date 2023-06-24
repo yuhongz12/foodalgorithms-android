@@ -18,11 +18,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.foodalgorithms.R;
+import com.example.foodalgorithms.ui.food.FoodDetailFragment;
 import com.example.foodalgorithms.ui.search.cocktail.ResultCocktailItem;
 import com.example.foodalgorithms.ui.search.cocktail.SearchCocktailFragment;
 import com.example.foodalgorithms.ui.search.food.ResultFoodItem;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,6 +59,9 @@ public class CreateComboActivity extends AppCompatActivity {
 
     List<String> stringList;
 
+    EditText createComboName;
+    EditText createComboDescription;
+
     Button createComboSaveButton;
 
 
@@ -71,6 +78,9 @@ public class CreateComboActivity extends AppCompatActivity {
         foodSearchList = new ArrayList<>();
         cocktailItemList = new ArrayList<>();
         stringList = new ArrayList<>();
+        createComboName = findViewById(R.id.CreateComboNameInput);
+        createComboDescription = findViewById(R.id.CreateComboDescriptionInput);
+        createComboSaveButton = findViewById(R.id.CreateComboSaveButton);
 
         recipeSelectSpinner.setOnClickListener(new View.OnClickListener() {
         @Override
@@ -90,11 +100,9 @@ public class CreateComboActivity extends AppCompatActivity {
                 ListView spinnerListView = dialog.findViewById(R.id.SpinnerListView);
                 Button spinnerButton = dialog.findViewById(R.id.SpinnerSearchButton);
 
-
-            //foodItemArrayAdapter = new ArrayAdapter<>( , android.R.layout.simple_list_item_1, stringList);
             foodItemArrayAdapter =  new ArrayAdapter<>(CreateComboActivity.this, android.R.layout.simple_list_item_1, stringList);
-                // set adapter
             spinnerListView.setAdapter(foodItemArrayAdapter);
+            //search button inside spinner
             spinnerButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -108,13 +116,12 @@ public class CreateComboActivity extends AppCompatActivity {
                 }
             });
             spinnerButton.performClick();
+            // select item and close spinner when item clicked
             spinnerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    // when item selected from list
-                    // set selected item on textView
                     recipeSelectSpinner.setText(foodItemArrayAdapter.getItem(position));
-                    // Dismiss dialog
+                    comboViewModel.getFoodItem().setValue(foodSearchList.get(position));
                     dialog.dismiss();
 
                 }
@@ -154,9 +161,6 @@ public class CreateComboActivity extends AppCompatActivity {
                         String searchTerm = spinnerSearchBar.getText().toString();
                         String foodURL = "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + searchTerm;
                         new SearchCocktailTask().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, foodURL);
-//                        cocktailSelectSpinner.clearFocus();
-//                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-//                        imm.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
                     }
                 });
                 spinnerButton.performClick();
@@ -166,6 +170,7 @@ public class CreateComboActivity extends AppCompatActivity {
                         // when item selected from list
                         // set selected item on textView
                         cocktailSelectSpinner.setText(foodItemArrayAdapter.getItem(position));
+                        comboViewModel.getCocktailItem().setValue(cocktailItemList.get(position));
                         // Dismiss dialog
                         dialog.dismiss();
 
@@ -173,6 +178,33 @@ public class CreateComboActivity extends AppCompatActivity {
                 });
             }
         });
+
+        createComboSaveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String comboName = createComboName.getText().toString();
+                String comboDescription = createComboDescription.getText().toString();
+
+                if (!comboName.isEmpty() && !comboDescription.isEmpty()) {
+                    ResultFoodItem food = comboViewModel.getFoodItem().getValue();
+                    ResultCocktailItem cocktail = comboViewModel.getCocktailItem().getValue();
+                    if ((food != null && food.getIdMeal() >= 0) && (cocktail != null && cocktail.getIdDrink() >= 0)) {
+                        Toast.makeText(CreateComboActivity.this, "Combo created", Toast.LENGTH_SHORT).show();
+                        Log.i("combo created", comboName + "; " + comboDescription + ", " + food.getStrMeal() + ", " + cocktail.getStrDrink());
+                        finish();
+                        DatabaseReference comboRef = FirebaseDatabase.getInstance().getReference().child("combos");
+                        String newComboKey = comboRef.push().getKey();
+                        Combo newCombo = new Combo(newComboKey, comboName, comboDescription, food, cocktail);
+                        comboRef.child(newComboKey).setValue(newCombo);
+                    } else {
+                        Toast.makeText(CreateComboActivity.this, "Please select a food and cocktail for the combo!", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(CreateComboActivity.this, "Please enter a combo name and description!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 
     class SearchFoodTask extends AsyncTask<String, Void, String> {

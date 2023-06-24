@@ -42,14 +42,6 @@ public class SpinnerAdapter extends ArrayAdapter<ResultFoodItem> {
 
         ResultFoodItem p = getItem(position);
 
-//        if (p != null) {
-//            TextView tt1 =  v.findViewById(R.id.text1);
-//
-//            if (tt1 != null) {
-//                tt1.setText(p.getStrMeal());
-//            }
-//
-//        }
 
         return v;
     }

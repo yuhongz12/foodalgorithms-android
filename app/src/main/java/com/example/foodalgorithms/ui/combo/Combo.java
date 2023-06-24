@@ -1,18 +1,23 @@
 package com.example.foodalgorithms.ui.combo;
 
-public class Combo {
+import com.example.foodalgorithms.ui.search.cocktail.ResultCocktailItem;
+import com.example.foodalgorithms.ui.search.food.ResultFoodItem;
 
+public class Combo {
     String comboId;
     String comboName;
-    String comboFood;
-    String comboCocktail;
+    String comboDescription;
+    ResultFoodItem comboFood;
+    ResultCocktailItem comboCocktail;
 
     public Combo() {
 
     }
 
-    public Combo(String comboName, String comboFood, String comboCocktail) {
+    public Combo(String comboId, String comboName, String comboDescription, ResultFoodItem comboFood, ResultCocktailItem comboCocktail) {
+        this.comboId = comboId;
         this.comboName = comboName;
+        this.comboDescription = comboDescription;
         this.comboFood = comboFood;
         this.comboCocktail = comboCocktail;
     }
@@ -25,19 +30,19 @@ public class Combo {
         this.comboName = comboName;
     }
 
-    public String getComboFood() {
+    public ResultFoodItem getComboFood() {
         return comboFood;
     }
 
-    public void setComboFood(String comboFood) {
+    public void setComboFood(ResultFoodItem comboFood) {
         this.comboFood = comboFood;
     }
 
-    public String getComboCocktail() {
+    public ResultCocktailItem getComboCocktail() {
         return comboCocktail;
     }
 
-    public void setComboCocktail(String comboCocktail) {
+    public void setComboCocktail(ResultCocktailItem comboCocktail) {
         this.comboCocktail = comboCocktail;
     }
 
@@ -47,5 +52,13 @@ public class Combo {
 
     public void setComboId(String comboId) {
         this.comboId = comboId;
+    }
+
+    public String getComboDescription() {
+        return comboDescription;
+    }
+
+    public void setComboDescription(String comboDescription) {
+        this.comboDescription = comboDescription;
     }
 }

@@ -16,8 +16,8 @@ public class ComboViewModel extends ViewModel {
     MutableLiveData<String> comboDescription;
 
     public ComboViewModel() {
-        foodItem = new MutableLiveData<>(new ResultFoodItem(0, "", ""));
-        cocktailItem = new MutableLiveData<>(new ResultCocktailItem(0, "", ""));
+        foodItem = new MutableLiveData<>(new ResultFoodItem(-1, "", ""));
+        cocktailItem = new MutableLiveData<>(new ResultCocktailItem(-1, "", ""));
         comboName = new MutableLiveData<>("");
         comboDescription = new MutableLiveData<>("");
     }
