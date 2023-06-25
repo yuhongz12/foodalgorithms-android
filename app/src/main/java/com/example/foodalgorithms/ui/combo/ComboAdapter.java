@@ -46,7 +46,7 @@ public class ComboAdapter extends RecyclerView.Adapter<ComboAdapter.ComboViewHol
                 AppCompatActivity activity = (AppCompatActivity) context;
                 ComboDetails comboDetails = new ComboDetails();
                 Bundle arguments = new Bundle();
-                arguments.putString("comboId", "feafewafwaefawefwe");
+                arguments.putString("comboId", comboList.get(holder.getAdapterPosition()).getComboId());
                 comboDetails.setArguments(arguments);
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerViewHome, comboDetails).addToBackStack(null).commit();
 
