@@ -25,6 +25,8 @@ import com.example.foodalgorithms.ui.food.FoodDetailFragment;
 import com.example.foodalgorithms.ui.search.cocktail.ResultCocktailItem;
 import com.example.foodalgorithms.ui.search.cocktail.SearchCocktailFragment;
 import com.example.foodalgorithms.ui.search.food.ResultFoodItem;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -194,8 +196,13 @@ public class CreateComboActivity extends AppCompatActivity {
                         finish();
                         DatabaseReference comboRef = FirebaseDatabase.getInstance().getReference().child("combos");
                         String newComboKey = comboRef.push().getKey();
-                        Combo newCombo = new Combo(newComboKey, comboName, comboDescription, food, cocktail);
-                        comboRef.child(newComboKey).setValue(newCombo);
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        if (user != null) {
+                            Combo newCombo = new Combo(user.getUid(), newComboKey, comboName, comboDescription, food, cocktail);
+                            comboRef.child(newComboKey).setValue(newCombo);
+                        } else {
+                            Toast.makeText(CreateComboActivity.this, "Error. Not logged in!", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
                         Toast.makeText(CreateComboActivity.this, "Please select a food and cocktail for the combo!", Toast.LENGTH_SHORT).show();
                     }

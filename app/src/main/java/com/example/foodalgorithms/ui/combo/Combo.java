@@ -5,6 +5,7 @@ import com.example.foodalgorithms.ui.search.food.ResultFoodItem;
 
 public class Combo {
     String comboId;
+    String userId;
     String comboName;
     String comboDescription;
     ResultFoodItem comboFood;
@@ -14,12 +15,21 @@ public class Combo {
 
     }
 
-    public Combo(String comboId, String comboName, String comboDescription, ResultFoodItem comboFood, ResultCocktailItem comboCocktail) {
+    public Combo(String userId, String comboId, String comboName, String comboDescription, ResultFoodItem comboFood, ResultCocktailItem comboCocktail) {
         this.comboId = comboId;
+        this.userId = userId;
         this.comboName = comboName;
         this.comboDescription = comboDescription;
         this.comboFood = comboFood;
         this.comboCocktail = comboCocktail;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getComboName() {

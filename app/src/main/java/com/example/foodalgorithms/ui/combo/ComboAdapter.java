@@ -37,12 +37,11 @@ public class ComboAdapter extends RecyclerView.Adapter<ComboAdapter.ComboViewHol
     @Override
     public void onBindViewHolder(@NonNull ComboViewHolder holder, int position) {
         holder.comboItemName.setText(comboList.get(position).getComboName());
-        holder.comboItemFoodName.setText(comboList.get(position).getComboFood().getStrMeal());
-        holder.comboItemCocktailName.setText(comboList.get(position).getComboCocktail().getStrDrink());
+        holder.comboItemFoodName.setText("Food: " +  comboList.get(position).getComboFood().getStrMeal());
+        holder.comboItemCocktailName.setText("Cocktail: " + comboList.get(position).getComboCocktail().getStrDrink());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent viewComboDetails = new Intent(context, ComboDetails.class);
                 AppCompatActivity activity = (AppCompatActivity) context;
                 ComboDetails comboDetails = new ComboDetails();
                 Bundle arguments = new Bundle();
