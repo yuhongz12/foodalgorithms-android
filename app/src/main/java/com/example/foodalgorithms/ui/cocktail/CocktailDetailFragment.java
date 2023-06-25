@@ -1,5 +1,7 @@
 package com.example.foodalgorithms.ui.cocktail;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -59,6 +61,8 @@ public class CocktailDetailFragment extends Fragment {
 
     ImageButton cocktailLikeButton;
 
+    ImageButton cocktailShareButton;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -75,6 +79,7 @@ public class CocktailDetailFragment extends Fragment {
         cocktailDetailDirectionsText = view.findViewById(R.id.CocktailDetailInstructionText);
         cocktailDetailImage = view.findViewById(R.id.CocktailDetailImage);
         cocktailDetailGlass = view.findViewById(R.id.CocktailDetailGlass);
+        cocktailShareButton = view.findViewById(R.id.CocktailShareButton);
         String foodURL = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" + idDrink;
         new DownloadCocktailRecipe().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, foodURL);
 
@@ -144,11 +149,12 @@ public class CocktailDetailFragment extends Fragment {
                         ingredientsBuilder.append(" ").append(strIngredients).append("\n");
                     }
                 }
+                String ingredients = ingredientsBuilder.toString();
                 String strInstructions = drink.getString("strInstructions");
                 cocktailDetailName.setText(strDrink);
                 cocktailDetailCategory.setText(strCategory);
                 cocktailDetailAlcoholic.setText(strAlcoholic);
-                cocktailDetailIngredientsText.setText(ingredientsBuilder.toString());
+                cocktailDetailIngredientsText.setText(ingredients);
                 cocktailDetailDirectionsText.setText(strInstructions);
                 cocktailDetailGlass.setText("Serve in a " + strGlass);
                 new DownloadImageTask(cocktailDetailImage).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, strDrinkThumb);
@@ -184,6 +190,19 @@ public class CocktailDetailFragment extends Fragment {
                         } else {
                             Toast.makeText(getContext(), "Error. User not logged in", Toast.LENGTH_SHORT).show();
                         }
+                    }
+                });
+                cocktailShareButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(Intent.ACTION_SEND);
+                        /*This will be the actual content you wish you share.*/
+                        String shareBody = strDrink  + "\n Alcohol: " + strAlcoholic +"\nCategory: " + strCategory + "\n Ingrdients: \n" + ingredients + "\n Instruction: \n" + strInstructions;
+                        /*The type of the content is text, obviously.*/
+                        intent.setDataAndType(Uri.parse("mailto:"), "text/plain");
+                        intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Check out this cocktail recipe!");
+                        intent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                        startActivity(Intent.createChooser(intent, "Share cocktail details using:"));
                     }
                 });
             } catch (JSONException e) {

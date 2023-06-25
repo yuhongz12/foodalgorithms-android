@@ -53,6 +53,16 @@
                     android:layout_height="wrap_content"
                     android:background="#FFFFFF"
                     android:src="@drawable/baseline_star_border_24" />
+
+                <ImageButton
+                    android:id="@+id/FoodShareButton"
+                    style="@style/Widget.AppCompat.ImageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:background="#00FFFFFF"
+                    android:src="@drawable/baseline_ios_share_24"
+                    tools:src="@drawable/baseline_ios_share_24" />
             </LinearLayout>
 
             <ImageView

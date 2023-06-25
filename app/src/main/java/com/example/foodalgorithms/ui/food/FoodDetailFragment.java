@@ -1,5 +1,6 @@
 package com.example.foodalgorithms.ui.food;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -53,6 +54,7 @@ public class FoodDetailFragment extends Fragment {
     WebView foodDetailsVideo;
 
     ImageButton likeFoodButton;
+    ImageButton shareFoodButton;
 
     int idMeal;
 
@@ -73,6 +75,7 @@ public class FoodDetailFragment extends Fragment {
         foodDetailsImage = view.findViewById(R.id.FoodDetailsImage);
         foodDetailsVideo = view.findViewById(R.id.FoodDetailsVideoView);
         likeFoodButton = view.findViewById(R.id.LikeFoodRecipeButton);
+        shareFoodButton = view.findViewById(R.id.FoodShareButton);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users/" + user.getUid() + "like/food/" + idMeal);
@@ -134,12 +137,13 @@ public class FoodDetailFragment extends Fragment {
                         ingredientsBuilder.append(i).append(". ").append(strMeasure).append(" ").append(strIngredients).append("\n");
                     }
                 }
-                String strInstructions = meal.getString("strInstructions");
+                String instruction = meal.getString("strInstructions");
+                String ingredients = ingredientsBuilder.toString();
                 foodDetailsName.setText(strMeal);
                 foodDetailsCategory.setText(strCategory);
                 foodDetailsCountry.setText(strArea);
-                foodDetailsIngredientsText.setText(ingredientsBuilder.toString());
-                foodDetailsDirectionsText.setText(strInstructions);
+                foodDetailsIngredientsText.setText(ingredients);
+                foodDetailsDirectionsText.setText(instruction);
                 new DownloadImageTask(foodDetailsImage).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, strMealThumb);
 
                 foodDetailsVideo.setWebViewClient(new WebViewClient());
@@ -186,6 +190,20 @@ public class FoodDetailFragment extends Fragment {
                         } else {
                             Toast.makeText(getContext(), "Error. User not logged in", Toast.LENGTH_SHORT).show();
                         }
+                    }
+                });
+
+                shareFoodButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(Intent.ACTION_SEND);
+                        /*This will be the actual content you wish you share.*/
+                        String shareBody = strMeal  + "\n Country: " + strArea +  "\nCategory: " + strCategory + "\n Ingrdients: \n" + ingredients + "\n Instruction: \n" + instruction;
+                        /*The type of the content is text, obviously.*/
+                        intent.setType("text/plain");
+                        intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Check out this food recipe!");
+                        intent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                        startActivity(Intent.createChooser(intent, "Share Food details using:"));
                     }
                 });
             } catch (JSONException e) {

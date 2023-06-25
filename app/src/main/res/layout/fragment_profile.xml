@@ -70,6 +70,21 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/profileCocktailList"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/profileComboLikedCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Combo Liked: 0"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/profileLIkeComboList"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <TextView

@@ -58,6 +58,11 @@ public class ProfileFragment extends Fragment {
     SearchFoodAdapter foodAdapter;
     SearchCocktailAdapter cocktailAdapter;
 
+    TextView profileComboLikedCount;
+    List<Combo> likeComboList;
+    ComboAdapter likeComboAdapter;
+    RecyclerView likeComboRecyclerView;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -90,6 +95,14 @@ public class ProfileFragment extends Fragment {
         userCocktailRecyclerView.setAdapter(cocktailAdapter);
         userCocktailRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         userCocktailRecyclerView.setNestedScrollingEnabled(false);
+
+        profileComboLikedCount = view.findViewById(R.id.profileComboLikedCount);
+        likeComboList = new ArrayList<>();
+        likeComboAdapter = new ComboAdapter(getContext(), likeComboList);
+        likeComboRecyclerView = view.findViewById(R.id.profileLIkeComboList);
+        likeComboRecyclerView.setAdapter(likeComboAdapter);
+        likeComboRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        likeComboRecyclerView.setNestedScrollingEnabled(false);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -155,6 +168,28 @@ public class ProfileFragment extends Fragment {
                     }
                 }
             }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) { }
+        });
+
+        likeComboList.clear();
+        likeComboAdapter.notifyDataSetChanged();
+        DatabaseReference comboRef = FirebaseDatabase.getInstance().getReference().child("users/" + currentUser + "like/combo/");
+
+        comboRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot f : snapshot.getChildren()) {
+                    Boolean liked = f.child("liked").getValue(Boolean.class);
+                    if (liked != null && liked) {
+                        Combo combo = f.child("combo").getValue(Combo.class);
+                        likeComboList.add(combo);
+                        likeComboAdapter.notifyItemInserted(likeComboList.size());
+                        profileComboLikedCount.setText("Combo liked: " + likeComboList.size());
+                    }
+                }
+            }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) { }
         });
