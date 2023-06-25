@@ -45,6 +45,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Country" />
+
+                <ImageButton
+                    android:id="@+id/LikeFoodRecipeButton"
+                    style="@style/TextAppearance.AppCompat.Widget.Button.Colored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:src="@drawable/baseline_star_border_24" />
             </LinearLayout>
 
             <ImageView
@@ -54,7 +62,7 @@
                 android:layout_marginBottom="12dp"
                 android:adjustViewBounds="true"
                 android:cropToPadding="false"
-                android:src="@drawable/key_lime_pie_image" />
+                tools:srcCompat="@drawable/key_lime_pie_image" />
 
             <TextView
                 android:id="@+id/FoodDetailsIngredientsTitle"
@@ -89,7 +97,7 @@
 
             <WebView
                 android:id="@+id/FoodDetailsVideoView"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp" />

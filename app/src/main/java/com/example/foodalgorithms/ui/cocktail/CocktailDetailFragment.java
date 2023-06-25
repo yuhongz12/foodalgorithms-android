@@ -11,11 +11,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.foodalgorithms.DownloadImageTask;
 import com.example.foodalgorithms.R;
+import com.example.foodalgorithms.ui.search.cocktail.ResultCocktailItem;
+import com.example.foodalgorithms.ui.search.food.ResultFoodItem;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,6 +57,8 @@ public class CocktailDetailFragment extends Fragment {
 
     int idDrink;
 
+    ImageButton cocktailLikeButton;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -64,6 +77,32 @@ public class CocktailDetailFragment extends Fragment {
         cocktailDetailGlass = view.findViewById(R.id.CocktailDetailGlass);
         String foodURL = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" + idDrink;
         new DownloadCocktailRecipe().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, foodURL);
+
+        cocktailLikeButton = view.findViewById(R.id.CocktailLikeButton);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users/" + user.getUid() + "like/drink/" + idDrink);
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    Boolean liked = snapshot.child("liked").getValue(Boolean.class);
+                    if (liked != null && liked) {
+                        cocktailLikeButton.setImageResource(R.drawable.baseline_star_24);
+                    } else {
+                        cocktailLikeButton.setImageResource(R.drawable.baseline_star_border_24);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        } else {
+            Toast.makeText(getContext(), "Error. User not logged in", Toast.LENGTH_SHORT).show();
+        }
+
+
         return view;
     }
 
@@ -113,6 +152,40 @@ public class CocktailDetailFragment extends Fragment {
                 cocktailDetailDirectionsText.setText(strInstructions);
                 cocktailDetailGlass.setText("Serve in a " + strGlass);
                 new DownloadImageTask(cocktailDetailImage).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, strDrinkThumb);
+
+                cocktailLikeButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        if (user != null) {
+                            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users/" + user.getUid() + "like/drink/" + idDrink);
+                            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    Boolean liked = snapshot.child("liked").getValue(Boolean.class);
+                                    if (liked != null && liked) {
+                                        userRef.child("liked").setValue(false);
+                                        cocktailLikeButton.setImageResource(R.drawable.baseline_star_border_24);
+                                        Toast.makeText(getContext(), "Removed from liked cocktail recipe collection", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        userRef.child("liked").setValue(true);
+                                        userRef.child("drink").setValue(new ResultCocktailItem(idDrink, strDrink, strDrinkThumb));
+                                        cocktailLikeButton.setImageResource(R.drawable.baseline_star_24);
+                                        Toast.makeText(getContext(), "Added to liked cocktail recipe collection", Toast.LENGTH_SHORT).show();
+
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                        } else {
+                            Toast.makeText(getContext(), "Error. User not logged in", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             } catch (JSONException e) {
                 e.printStackTrace();
             }

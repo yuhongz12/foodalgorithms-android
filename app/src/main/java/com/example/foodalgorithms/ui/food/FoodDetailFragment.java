@@ -13,11 +13,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.foodalgorithms.DownloadImageTask;
 import com.example.foodalgorithms.R;
+import com.example.foodalgorithms.ui.search.food.ResultFoodItem;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,6 +52,8 @@ public class FoodDetailFragment extends Fragment {
     ImageView foodDetailsImage;
     WebView foodDetailsVideo;
 
+    ImageButton likeFoodButton;
+
     int idMeal;
 
     @Override
@@ -60,6 +72,30 @@ public class FoodDetailFragment extends Fragment {
         foodDetailsDirectionsText = view.findViewById(R.id.FoodDetailsInstructionText);
         foodDetailsImage = view.findViewById(R.id.FoodDetailsImage);
         foodDetailsVideo = view.findViewById(R.id.FoodDetailsVideoView);
+        likeFoodButton = view.findViewById(R.id.LikeFoodRecipeButton);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users/" + user.getUid() + "like/food/" + idMeal);
+            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    Boolean liked = snapshot.child("liked").getValue(Boolean.class);
+                    if (liked != null && liked) {
+                        likeFoodButton.setImageResource(R.drawable.baseline_star_24);
+                    } else {
+                        likeFoodButton.setImageResource(R.drawable.baseline_star_border_24);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        } else {
+            Toast.makeText(getContext(), "Error. User not logged in", Toast.LENGTH_SHORT).show();
+        }
+
         String foodURL = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=" + idMeal;
         new DownloadFoodRecipe().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, foodURL);
         return view;
@@ -118,22 +154,40 @@ public class FoodDetailFragment extends Fragment {
                     String customHtml = "No Youtube Video available for this recipe.";
                     foodDetailsVideo.loadData(customHtml, "text", "UTF-8");
                 }
-//                } else if (cocktailOrFood.equals("cocktail")) {
-//                    Log.i("JSON Cocktail", s);
-//                    JSONObject drink = jsonObject.getJSONArray("drinks").getJSONObject(0);
-//                    int idDrink = drink.getInt("idDrink");
-//                    String strDrink = drink.getString("strDrink");
-//                    String strCategory = drink.getString("strCategory");
-//                    String strAlcoholic = drink.getString("strAlcoholic");
-//                    String strDrinkThumb = drink.getString("strDrinkThumb");
-//
-//                    Intent intent = new Intent("homeRandomCocktailData");
-//                    intent.putExtra("idDrink", idDrink);
-//                    intent.putExtra("strDrink",  strDrink);
-//                    intent.putExtra("strCategory", strCategory);
-//                    intent.putExtra("strAlcoholic", strAlcoholic);
-//                    intent.putExtra("strDrinkThumb", strDrinkThumb);
-//                }
+
+                likeFoodButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        if (user != null) {
+                            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users/" + user.getUid() + "like/food/" + idMeal);
+                            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    Boolean liked = snapshot.child("liked").getValue(Boolean.class);
+                                    if (liked != null && liked) {
+                                        userRef.child("liked").setValue(false);
+                                        likeFoodButton.setImageResource(R.drawable.baseline_star_border_24);
+                                        Toast.makeText(getContext(), "Removed from liked food recipe collection", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        userRef.child("liked").setValue(true);
+                                        userRef.child("meal").setValue(new ResultFoodItem(idMeal, strMeal, strMealThumb));
+                                        likeFoodButton.setImageResource(R.drawable.baseline_star_24);
+                                        Toast.makeText(getContext(), "Added to liked food recipe collection", Toast.LENGTH_SHORT).show();
+
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                        } else {
+                            Toast.makeText(getContext(), "Error. User not logged in", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             } catch (JSONException e) {
                 e.printStackTrace();
             }
