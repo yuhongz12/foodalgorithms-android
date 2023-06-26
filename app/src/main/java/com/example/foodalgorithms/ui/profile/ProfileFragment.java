@@ -137,6 +137,9 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) { }
         });
+
+        foodItemList.clear();
+        foodAdapter.notifyDataSetChanged();
         DatabaseReference foodRef = FirebaseDatabase.getInstance().getReference().child("users/" + currentUser + "like/food/");
         foodRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -154,6 +157,8 @@ public class ProfileFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError error) { }
         });
 
+        cocktailItemList.clear();
+        cocktailAdapter.notifyDataSetChanged();
         DatabaseReference cocktailRef = FirebaseDatabase.getInstance().getReference().child("users/" + currentUser + "like/drink/");
         cocktailRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -163,7 +168,7 @@ public class ProfileFragment extends Fragment {
                     if (liked != null && liked) {
                         cocktailItemList.add(f.child("drink").getValue(ResultCocktailItem.class));
                         cocktailAdapter.notifyItemInserted(cocktailItemList.size());
-                        userCocktailCount.setText("Cocktail recipes liked: " + cocktailItemList.size());
+                        userCocktailCount.setText("Drink recipes liked: " + cocktailItemList.size());
 
                     }
                 }

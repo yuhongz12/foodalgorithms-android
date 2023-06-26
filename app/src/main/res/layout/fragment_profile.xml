@@ -64,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:text="Cocktail Recipe Liked: 0"
+                android:text="Drink Recipe Liked: 0"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
             <androidx.recyclerview.widget.RecyclerView

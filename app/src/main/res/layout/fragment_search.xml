@@ -25,7 +25,7 @@
             android:id="@+id/SearchCocktailTab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cocktail" />
+            android:text="Drink" />
 
     </com.google.android.material.tabs.TabLayout>
 

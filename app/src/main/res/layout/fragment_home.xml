@@ -22,7 +22,7 @@
                 android:id="@+id/RandomRecipeCardLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Random Recipe"
+                android:text="Random Food Recipe"
                 android:textStyle="bold" />
 
             <androidx.cardview.widget.CardView
@@ -97,7 +97,7 @@
                 android:id="@+id/RandomCocktailRecipeLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Random Cocktail"
+                android:text="Random Drink Recipe"
                 android:textStyle="bold" />
 
             <androidx.cardview.widget.CardView

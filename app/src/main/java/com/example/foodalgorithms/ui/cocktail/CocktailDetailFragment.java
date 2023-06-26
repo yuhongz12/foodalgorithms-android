@@ -199,9 +199,9 @@ public class CocktailDetailFragment extends Fragment {
                         /*This will be the actual content you wish you share.*/
                         String shareBody = strDrink  + "\n Alcohol: " + strAlcoholic +"\nCategory: " + strCategory + "\n Ingrdients: \n" + ingredients + "\n Instruction: \n" + strInstructions;
                         /*The type of the content is text, obviously.*/
-                        intent.setDataAndType(Uri.parse("mailto:"), "text/plain");
-                        intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Check out this cocktail recipe!");
-                        intent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                        intent.setType("text/plain");
+                        intent.putExtra(Intent.EXTRA_SUBJECT, "Check out this cocktail recipe!");
+                        intent.putExtra(Intent.EXTRA_TEXT, shareBody);
                         startActivity(Intent.createChooser(intent, "Share cocktail details using:"));
                     }
                 });
